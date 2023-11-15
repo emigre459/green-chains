@@ -76,6 +76,14 @@ endif
 test_environment:
 	$(PYTHON_INTERPRETER) test_environment.py
 
+## Make sure jupyter can see conda environment for notebook kernels
+register_conda_kernel:
+ifeq ($(CONDA_DEFAULT_ENV),$(PROJECT_NAME))
+	python -m ipykernel install --user --name=$(PROJECT_NAME)
+else
+	@echo "Expected conda env '$(PROJECT_NAME)' but got '$(CONDA_DEFAULT_ENV)' instead. Exiting..."
+endif
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
