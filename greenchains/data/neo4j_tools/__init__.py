@@ -15,8 +15,6 @@ IMPORT_DIR = PurePosixPath("/var/lib/neo4j/import")  # assumes a linux remote in
 EXPORT_FORMAT_CHOICES = ("graphml", "csv", "json", "cypher")
 NEO4J_PASSWORD_ENV_KEY = "NEO4J_PASSWORD"  # check os.environ for this. CBB but good enough for now
 
-MAX_CONCURRENT_REQUESTS = 100
-REQUEST_INTERVAL_SECONDS = 1
 
 ALLOWED_NEO4J_DATA_TYPES = [
     'int', 'long', 'float', 'double', 'boolean', 'byte', 'short',
