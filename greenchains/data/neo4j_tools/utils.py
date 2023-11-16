@@ -1,26 +1,18 @@
 import pandas as pd
 from pandas.api.types import is_datetime64_any_dtype as is_pandas_datetime
 import numpy as np
-import logging
-from vespid import get_current_datetime
 from tqdm import tqdm
 import os
 from typing import Iterable
-from interchange.time import DateTime as py2neo_datetime
 from neo4j.time import DateTime as neo4j_datetime
-from vespid.data import find_columns_by_class
 
+import logging
+from greenchains.config import LOGGER_NAME
+from greenchains import logs
+logger = logging.getLogger(LOGGER_NAME)
 
-LOG_FORMAT = '%(asctime)s: %(levelname)s (%(name)s) - %(message)s'
 MAX_CONCURRENT_REQUESTS = 100
 REQUEST_INTERVAL_SECONDS = 1
-
-logging.basicConfig(
-    format=LOG_FORMAT,
-    level=logging.INFO,
-    datefmt='%m/%d/%Y %H:%M:%S')
-
-logger = logging.getLogger(__name__)
 
 def df_convert_cols_to_semicolon_delimited_str(df, *column_names, delimiter=';'):
     """for each column in column_names, convert each item to str and then concatenate with delimiter"""
@@ -132,7 +124,7 @@ def transform_timestamps(df):
             df[column].apply(
                 lambda col: isinstance(
                     col, 
-                    (neo4j_datetime, py2neo_datetime)
+                    neo4j_datetime
                 )).sum() > 0:
             datetime_columns.append(column)
     
