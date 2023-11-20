@@ -8,9 +8,6 @@ from greenchains.config import LOGGER_NAME
 from greenchains import logs
 logger = logging.getLogger(LOGGER_NAME)
 
-# Timestamp we have to use to represent NULL
-INVALID_TIMESTAMP = pd.Timedelta(25, 'days') + pd.Timestamp(dt.today())
-
 IMPORT_DIR = PurePosixPath("/var/lib/neo4j/import")  # assumes a linux remote instance
 EXPORT_FORMAT_CHOICES = ("graphml", "csv", "json", "cypher")
 NEO4J_PASSWORD_ENV_KEY = "NEO4J_PASSWORD"  # check os.environ for this. CBB but good enough for now
